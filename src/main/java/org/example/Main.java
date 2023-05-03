@@ -1,6 +1,10 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Main {
+    private static final Logger log = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
         University university = new University(
                 "1",
@@ -17,5 +21,7 @@ public class Main {
         );
         System.out.println(university);
         System.out.println(student);
+        log.info("Это информационное сообщение!");
+        log.error("Это сообщение ошибки");
     }
 }
