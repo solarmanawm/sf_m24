@@ -46,6 +46,9 @@ public class Student {
     }
 
     public String toString() {
+        System.out.println();
+        System.out.println("-----------------------");
+
         return "\nStudent \"%s\"\nUniversity id: %s\nCourse number: %d\nAvg. exam score: %f".formatted(
                 fullName,
                 universityId,

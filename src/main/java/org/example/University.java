@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.enums.StudyProfile;
+
 public class University {
     private String id;
     private String fullName;
@@ -56,6 +58,9 @@ public class University {
     }
 
     public String toString() {
+        System.out.println();
+        System.out.println("-----------------------");
+
         return "\nUniversity \"%s\"\nShort name: %s\nYear of foundation: %d\nMain Profile: %s".formatted(
                 fullName,
                 shortName,

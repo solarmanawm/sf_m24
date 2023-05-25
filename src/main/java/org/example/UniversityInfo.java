@@ -2,6 +2,7 @@ package org.example;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.example.enums.StudyProfile;
 
 import java.io.FileInputStream;
 import java.io.IOException;

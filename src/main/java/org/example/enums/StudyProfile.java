@@ -1,4 +1,4 @@
-package org.example;
+package org.example.enums;
 
 public enum StudyProfile {
     PHYSICS("PHYSICS"),
@@ -12,7 +12,7 @@ public enum StudyProfile {
         this.profileName = profileName;
     }
 
-    String getName() {
+    public String getName() {
         return profileName;
     }
 }
