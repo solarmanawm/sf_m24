@@ -2,13 +2,14 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.enums.StudentComparison;
-import org.example.enums.UniversityComparison;
-import org.example.interfaces.StudentComparatorInterface;
-import org.example.interfaces.UniversityComparatorInterface;
+//import org.example.enums.StudentComparison;
+//import org.example.enums.UniversityComparison;
+//import org.example.interfaces.StudentComparatorInterface;
+//import org.example.interfaces.UniversityComparatorInterface;
 
+//import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
+//import java.util.stream.Stream;
 
 public class Main {
     private static final Logger log = LogManager.getLogger(Main.class);
@@ -42,21 +43,68 @@ public class Main {
 //        universities.stream().sorted(universityByMainProfileComparator).forEach(System.out::print);
 //        universities.stream().sorted(universityByYearOfFoundationComparator).forEach(System.out::print);
 
-        for (StudentComparison comparison : StudentComparison.values()) {
-            System.out.println();
-            System.out.println("SORT BY: " + comparison.getName());
-            StudentComparatorInterface comparator = ComparatorFactory.getStudentComparator(comparison);
-            students.stream().sorted(comparator).forEach(System.out::print);
-        }
-
-        for (UniversityComparison comparison : UniversityComparison.values()) {
-            System.out.println();
-            System.out.println("SORT BY: " + comparison.getName());
-            UniversityComparatorInterface comparator = ComparatorFactory.getUniversityComparator(comparison);
-            universities.stream().sorted(comparator).forEach(System.out::print);
-        }
+//        for (StudentComparison comparison : StudentComparison.values()) {
+//            System.out.println();
+//            System.out.println("SORT BY: " + comparison.getName());
+//            StudentComparatorInterface comparator = ComparatorFactory.getStudentComparator(comparison);
+//            students.stream().sorted(comparator).forEach(System.out::print);
+//        }
+//
+//        for (UniversityComparison comparison : UniversityComparison.values()) {
+//            System.out.println();
+//            System.out.println("SORT BY: " + comparison.getName());
+//            UniversityComparatorInterface comparator = ComparatorFactory.getUniversityComparator(comparison);
+//            universities.stream().sorted(comparator).forEach(System.out::print);
+//        }
 
         log.info("Это информационное сообщение!");
         log.error("Это сообщение ошибки");
+
+        JsonUtil jsonUtil = JsonUtil.getInstance();
+
+        String studentsJson = jsonUtil.serializeStudentsList(students);
+        String universitiesJson = jsonUtil.serializeUniversitiesList(universities);
+
+        System.out.println(studentsJson);
+        System.out.println(universitiesJson);
+
+        List<Student> newStudents = jsonUtil.deserializeStudentsList(studentsJson);
+        List<University> newUniversities = jsonUtil.deserializeUniversitiesList(universitiesJson);
+
+        System.out.println();
+        System.out.println("Is the same quantity of students: " + (students.size() == newStudents.size()));
+        System.out.println("Is the same quantity of universities: " + (universities.size() == newUniversities.size()));
+
+        students.stream()
+                .map(jsonUtil::serializeStudent)
+                .peek(ss -> {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Serialized student: ");
+                    System.out.println();
+                    System.out.println(ss);
+                })
+                .map(jsonUtil::deserializeStudent)
+                .forEach(ds -> {
+                    System.out.println();
+                    System.out.println("Deserialized student: ");
+                    System.out.println(ds);
+                });
+
+        universities.stream()
+                .map(jsonUtil::serializeUniversity)
+                .peek(su -> {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Serialized university: ");
+                    System.out.println();
+                    System.out.println(su);
+                })
+                .map(jsonUtil::deserializeUniversity)
+                .forEach(du -> {
+                    System.out.println();
+                    System.out.println("Deserialized university: ");
+                    System.out.println(du);
+                });
     }
 }
