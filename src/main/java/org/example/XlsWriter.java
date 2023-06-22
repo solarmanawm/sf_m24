@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class XlsWriter {
+    private static final Logger log = LogManager.getLogger(XlsWriter.class);
     private final Workbook workbook;
 
     XlsWriter() {
@@ -61,11 +64,14 @@ public class XlsWriter {
         }
     }
 
-    private void writeToFile(String filePath) throws IOException {
+    private void writeToFile(String filePath) {
         File file = new File(filePath);
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
             workbook.write(fos);
+        } catch (IOException e) {
+            log.error("Невозможно записать в файл " + filePath);
+            System.exit(1);
         }
     }
 
@@ -101,5 +107,7 @@ public class XlsWriter {
         setCellHeaders(sheet, cellHeadersStyle);
         setContent(sheet, statistics);
         writeToFile(filePath);
+
+        log.info("Данные успешно записались в файл");
     }
 }

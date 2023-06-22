@@ -58,8 +58,8 @@ public class Main {
 //            universities.stream().sorted(comparator).forEach(System.out::print);
 //        }
 
-        log.info("Это информационное сообщение!");
-        log.error("Это сообщение ошибки");
+//        log.info("Это информационное сообщение!");
+//        log.error("Это сообщение ошибки");
 
 //        JsonUtil jsonUtil = JsonUtil.getInstance();
 //

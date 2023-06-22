@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.enums.StudyProfile;
 
 import java.math.BigDecimal;
@@ -7,6 +9,7 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class StatisticsUtils {
+    private static final Logger log = LogManager.getLogger(StatisticsUtils.class);
     public static ArrayList<Statistics> getStatistics(List<Student> students, List<University> universities) {
         Set<StudyProfile> studyProfileSet = new HashSet<>();
 
@@ -60,6 +63,8 @@ public class StatisticsUtils {
             statistics.setUniversitiesByStudyProfile(universitiesNames.length);
 
             statsList.add(statistics);
+
+            log.info("Собрана статистика по университетам с профилем " + studyProfile);
         }
 
         return statsList;
