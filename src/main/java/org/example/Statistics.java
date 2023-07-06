@@ -2,11 +2,20 @@ package org.example;
 
 import org.example.enums.StudyProfile;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name="statisticsEntry")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Statistics {
+    @XmlElement(name="universityProfile")
     private StudyProfile studyProfile;
+    @XmlElement(name="avgScore")
     private float avgExamScore;
+    @XmlTransient
     private int studentsByStudyProfile;
+    @XmlTransient
     private int universitiesByStudyProfile;
+    @XmlTransient
     private String[] universitiesNames;
 
     void setStudyProfile(StudyProfile profile) {

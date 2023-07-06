@@ -1,19 +1,31 @@
 package org.example;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 import org.example.enums.StudyProfile;
 
+import javax.xml.bind.annotation.*;
+
+@Data
+@XmlRootElement(name="universityEntry")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class University {
     @SerializedName("universityId")
+    @XmlElement(name="universityId")
     private String id;
     @SerializedName("universityName")
+    @XmlElement(name="universityName")
     private String fullName;
     @SerializedName("universityAbbreviation")
+    @XmlTransient
     private String shortName;
     @SerializedName("universityEst")
+    @XmlTransient
     private int yearOfFoundation;
     @SerializedName("universityProfile")
+    @XmlElement(name="universityProfile")
     private StudyProfile mainProfile;
+    private University() {}
 
     public University(String id, String fullName, String shortName, int yearOfFoundation, StudyProfile mainProfile) {
         this.id = id;

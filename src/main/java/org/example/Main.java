@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 //import org.example.interfaces.UniversityComparatorInterface;
 
 //import java.util.Iterator;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.stream.Stream;
@@ -107,9 +109,36 @@ public class Main {
 //                    System.out.println("Deserialized university: ");
 //                    System.out.println(du);
 //                });
-        String filePath = "file.xlsx";
-        XlsWriter xlsWriter = new XlsWriter();
+
+//        String filePath = "file.xlsx";
+//        XlsWriter xlsWriter = new XlsWriter();
         ArrayList<Statistics> list = StatisticsUtils.getStatistics(students, universities);
-        xlsWriter.generateTableAndWriteToFile(list, filePath);
+//        xlsWriter.generateTableAndWriteToFile(list, filePath);
+
+//        List<Temp> tempList = new ArrayList<>();
+//        ProcessedAtDate processedAtDate = new ProcessedAtDate();
+//        xmlStructure.setStudents(new ArrayList<>());
+//        xmlStructure.setUniversities(new ArrayList<>());
+//        xmlStructure.setTemp(tempList);
+
+        StatisticalInfo statisticalInfo = new StatisticalInfo();
+        statisticalInfo.setStatisticsList(list);
+
+        UniversitiesInfo universitiesInfo = new UniversitiesInfo();
+        universitiesInfo.setUniversityList(universities);
+
+        StudentsInfo studentsInfo = new StudentsInfo();
+        studentsInfo.setStudentList(students);
+
+        Structure structure = new Structure();
+        structure.setUniversitiesInfo(universitiesInfo);
+        structure.setStudentsInfo(studentsInfo);
+        structure.setStatisticalInfo(statisticalInfo);
+        ZoneId z = ZoneId.of("Europe/Moscow");
+        LocalDateTime today = LocalDateTime.now(z);
+        structure.setDate(today.toString());
+
+        XmlWriter xmlWriter = new XmlWriter(structure);
+        xmlWriter.write();
     }
 }
