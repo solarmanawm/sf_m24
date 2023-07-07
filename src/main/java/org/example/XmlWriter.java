@@ -1,5 +1,8 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -9,6 +12,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class XmlWriter extends AbstractWriter {
+    private static final Logger log = LogManager.getLogger(XmlWriter.class);
     XmlWriter() { super("xml"); }
 
     @Override
@@ -19,5 +23,6 @@ public class XmlWriter extends AbstractWriter {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(structure, writer);
         fos.write(writer.toString().getBytes(StandardCharsets.UTF_8));
+        log.error("Данные зхаписаны в " + this.fileExtension + " файл запроса.");
     }
 }

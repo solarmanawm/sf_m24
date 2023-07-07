@@ -1,5 +1,8 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,7 +10,8 @@ import java.io.IOException;
 import java.util.Date;
 
 public abstract class AbstractWriter {
-    private final String fileExtension;
+    private static final Logger log = LogManager.getLogger(AbstractWriter.class);
+    protected final String fileExtension;
     AbstractWriter(String fileExtension) {
         this.fileExtension = fileExtension;
     }
@@ -26,9 +30,11 @@ public abstract class AbstractWriter {
             directoryFile.mkdir();
         }
 
-        try (FileOutputStream fos = new FileOutputStream(directory + "/" + file)) {
+        String path = directory + "/" + file;
+        try (FileOutputStream fos = new FileOutputStream(path)) {
             writeToFile(fos, structure);
         } catch (IOException | JAXBException e) {
+            log.error("Невозможно записать в файл " + path);
             System.exit(1);
         }
     }
