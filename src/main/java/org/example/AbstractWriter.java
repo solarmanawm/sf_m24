@@ -4,6 +4,7 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 public abstract class AbstractWriter {
     private final String fileExtension;
@@ -15,7 +16,8 @@ public abstract class AbstractWriter {
 
     void write(Structure structure) {
         String fileExtension = "." + this.fileExtension;
-        File file = new File("req" + fileExtension);
+        Date date = new Date();
+        File file = new File("req_" + date.getTime() + fileExtension);
 
         String directory = this.fileExtension + "Reqs";
         File directoryFile = new File(directory);
