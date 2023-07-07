@@ -47,6 +47,10 @@ public class JsonUtil {
         return this.gson.toJson(students);
     }
 
+    <T> String serialize(T object) {
+        return this.gson.toJson(object);
+    }
+
     String serializeUniversitiesList(List<University> universities) {
         return this.gson.toJson(universities);
     }

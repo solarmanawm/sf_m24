@@ -113,13 +113,6 @@ public class Main {
 //        String filePath = "file.xlsx";
 //        XlsWriter xlsWriter = new XlsWriter();
         ArrayList<Statistics> list = StatisticsUtils.getStatistics(students, universities);
-//        xlsWriter.generateTableAndWriteToFile(list, filePath);
-
-//        List<Temp> tempList = new ArrayList<>();
-//        ProcessedAtDate processedAtDate = new ProcessedAtDate();
-//        xmlStructure.setStudents(new ArrayList<>());
-//        xmlStructure.setUniversities(new ArrayList<>());
-//        xmlStructure.setTemp(tempList);
 
         StatisticalInfo statisticalInfo = new StatisticalInfo();
         statisticalInfo.setStatisticsList(list);
@@ -140,5 +133,8 @@ public class Main {
 
         XmlWriter xmlWriter = new XmlWriter(structure);
         xmlWriter.write();
+
+        JsonWriter jsonWriter = new JsonWriter(structure);
+        jsonWriter.write();
     }
 }

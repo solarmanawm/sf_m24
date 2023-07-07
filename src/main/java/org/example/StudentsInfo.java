@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.annotations.SerializedName;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -10,6 +12,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StudentsInfo {
     @XmlElement(name="studentEntry")
+    @SerializedName("studentEntry")
     private List<Student> studentList;
     public StudentsInfo() {}
 

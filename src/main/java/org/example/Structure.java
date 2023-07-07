@@ -1,5 +1,6 @@
 package org.example;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import javax.xml.bind.annotation.*;
@@ -9,11 +10,17 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Structure {
     @XmlElement(name="processedAt")
+    @SerializedName("processedAt")
     private String date;
     @XmlElement(name="statisticalInfo")
+    @SerializedName("statisticalInfo")
     private StatisticalInfo statisticalInfo;
     @XmlElement(name="universitiesInfo")
+    @SerializedName("universitiesInfo")
     private UniversitiesInfo universitiesInfo;
+    @XmlElement(name="studentsInfo")
+    @SerializedName("studentsInfo")
+    private StudentsInfo studentsInfo;
 
     public UniversitiesInfo getUniversitiesInfo() {
         return universitiesInfo;
@@ -22,9 +29,6 @@ public class Structure {
     public void setUniversitiesInfo(UniversitiesInfo universitiesInfo) {
         this.universitiesInfo = universitiesInfo;
     }
-
-    @XmlElement(name="studentsInfo")
-    private StudentsInfo studentsInfo;
 
     public StudentsInfo getStudentsInfo() {
         return studentsInfo;
