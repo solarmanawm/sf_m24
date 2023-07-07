@@ -2,17 +2,11 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.example.enums.StudentComparison;
-//import org.example.enums.UniversityComparison;
-//import org.example.interfaces.StudentComparatorInterface;
-//import org.example.interfaces.UniversityComparatorInterface;
 
-//import java.util.Iterator;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.stream.Stream;
 
 public class Main {
     private static final Logger log = LogManager.getLogger(Main.class);
@@ -63,57 +57,57 @@ public class Main {
 //        log.info("Это информационное сообщение!");
 //        log.error("Это сообщение ошибки");
 
-//        JsonUtil jsonUtil = JsonUtil.getInstance();
-//
-//        String studentsJson = jsonUtil.serializeStudentsList(students);
-//        String universitiesJson = jsonUtil.serializeUniversitiesList(universities);
-//
-//        System.out.println(studentsJson);
-//        System.out.println(universitiesJson);
-//
-//        List<Student> newStudents = jsonUtil.deserializeStudentsList(studentsJson);
-//        List<University> newUniversities = jsonUtil.deserializeUniversitiesList(universitiesJson);
-//
-//        System.out.println();
-//        System.out.println("Is the same quantity of students: " + (students.size() == newStudents.size()));
-//        System.out.println("Is the same quantity of universities: " + (universities.size() == newUniversities.size()));
-//
-//        students.stream()
-//                .map(jsonUtil::serializeStudent)
-//                .peek(ss -> {
-//                    System.out.println();
-//                    System.out.println();
-//                    System.out.println("Serialized student: ");
-//                    System.out.println();
-//                    System.out.println(ss);
-//                })
-//                .map(jsonUtil::deserializeStudent)
-//                .forEach(ds -> {
-//                    System.out.println();
-//                    System.out.println("Deserialized student: ");
-//                    System.out.println(ds);
-//                });
-//
-//        universities.stream()
-//                .map(jsonUtil::serializeUniversity)
-//                .peek(su -> {
-//                    System.out.println();
-//                    System.out.println();
-//                    System.out.println("Serialized university: ");
-//                    System.out.println();
-//                    System.out.println(su);
-//                })
-//                .map(jsonUtil::deserializeUniversity)
-//                .forEach(du -> {
-//                    System.out.println();
-//                    System.out.println("Deserialized university: ");
-//                    System.out.println(du);
-//                });
+        JsonUtil jsonUtil = JsonUtil.getInstance();
 
-//        String filePath = "file.xlsx";
-//        XlsWriter xlsWriter = new XlsWriter();
+        String studentsJson = jsonUtil.serialize(students);
+        String universitiesJson = jsonUtil.serialize(universities);
 
+        System.out.println(studentsJson);
+        System.out.println(universitiesJson);
+
+        List<Student> newStudents = jsonUtil.deserialize(studentsJson);
+        List<University> newUniversities = jsonUtil.deserialize(universitiesJson);
+
+        System.out.println();
+        System.out.println("Is the same quantity of students: " + (students.size() == newStudents.size()));
+        System.out.println("Is the same quantity of universities: " + (universities.size() == newUniversities.size()));
+
+        students.stream()
+                .map(jsonUtil::serialize)
+                .peek(ss -> {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Serialized student: ");
+                    System.out.println();
+                    System.out.println(ss);
+                })
+                .map(jsonUtil::deserialize)
+                .forEach(ds -> {
+                    System.out.println();
+                    System.out.println("Deserialized student: ");
+                    System.out.println(ds);
+                });
+
+        universities.stream()
+                .map(jsonUtil::serialize)
+                .peek(su -> {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Serialized university: ");
+                    System.out.println();
+                    System.out.println(su);
+                })
+                .map(jsonUtil::deserialize)
+                .forEach(du -> {
+                    System.out.println();
+                    System.out.println("Deserialized university: ");
+                    System.out.println(du);
+                });
+
+        String filePath = "file.xlsx";
+        XlsWriter xlsWriter = new XlsWriter();
         ArrayList<Statistics> list = StatisticsUtils.getStatistics(students, universities);
+        xlsWriter.generateTableAndWriteToFile(list, filePath);
 
         StatisticalInfo statisticalInfo = new StatisticalInfo();
         statisticalInfo.setStatisticsList(list);
