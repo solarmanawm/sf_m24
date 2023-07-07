@@ -112,6 +112,7 @@ public class Main {
 
 //        String filePath = "file.xlsx";
 //        XlsWriter xlsWriter = new XlsWriter();
+
         ArrayList<Statistics> list = StatisticsUtils.getStatistics(students, universities);
 
         StatisticalInfo statisticalInfo = new StatisticalInfo();
@@ -123,18 +124,19 @@ public class Main {
         StudentsInfo studentsInfo = new StudentsInfo();
         studentsInfo.setStudentList(students);
 
+        ZoneId z = ZoneId.of("Europe/Moscow");
+        LocalDateTime today = LocalDateTime.now(z);
+
         Structure structure = new Structure();
         structure.setUniversitiesInfo(universitiesInfo);
         structure.setStudentsInfo(studentsInfo);
         structure.setStatisticalInfo(statisticalInfo);
-        ZoneId z = ZoneId.of("Europe/Moscow");
-        LocalDateTime today = LocalDateTime.now(z);
         structure.setDate(today.toString());
 
-        XmlWriter xmlWriter = new XmlWriter(structure);
-        xmlWriter.write();
+        XmlWriter xmlWriter = new XmlWriter();
+        xmlWriter.write(structure);
 
-        JsonWriter jsonWriter = new JsonWriter(structure);
-        jsonWriter.write();
+        JsonWriter jsonWriter = new JsonWriter();
+        jsonWriter.write(structure);
     }
 }
